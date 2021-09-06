@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "154368864541",
+    "firebase_url": "https://e-smartrestaurant.firebaseio.com",
+    "project_id": "e-smartrestaurant"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154368864541:android:7c154ac01ab86c0d",
+        "android_client_info": {
+          "package_name": "info.efficacious.centralmodelschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154368864541-ishagnvpbinuu21qmmqrsgm8jbjmfua9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.efficacious.centralmodelschool",
+            "certificate_hash": "06324932fd2ae527bf83928fbbaffbf3e54e7230"
+          }
+        },
+        {
+          "client_id": "154368864541-p94kcj9pgpnba0mv3kpdve0n1tskmo3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.efficacious.centralmodelschool",
+            "certificate_hash": "96358d1ca56ebf829030714fb4a20767ca372566"
+          }
+        },
+        {
+          "client_id": "154368864541-t0e1h8bi8h1aim31iivrmkd5gm2ftja1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDePryXAk3xjui5a9-AUX6LCjGmfPzcPM8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154368864541-2uihpctoqu4s4jmecgt0qd8tfrce8o3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

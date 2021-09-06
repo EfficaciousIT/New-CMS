@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:background="@color/grey_200"
+        android:padding="10dp"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/message_pic"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/profile_circular_border_imageview"
+            android:padding="5dp"
+            android:src="@mipmap/profile"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messagelayout"
+            android:orientation="vertical"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Student_name"
+            android:text="Student"
+            android:textSize="24sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Message"
+            android:text="Message"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/caldroid_gray"></TextView>
+        </LinearLayout>
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/profile_circular_border_imageview"
+            android:layout_marginLeft="140dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40"
+                android:id="@+id/msgnumber"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center" />
+
+
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
