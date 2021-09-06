@@ -19,33 +19,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import info.efficacious.centralmodelschool.Interface.DataService;
-import info.efficacious.centralmodelschool.R;
-import info.efficacious.centralmodelschool.WeeklyCalender.WeekCalendar;
-import info.efficacious.centralmodelschool.WeeklyCalender.listener.OnDateClickListener;
-import info.efficacious.centralmodelschool.WeeklyCalender.listener.OnWeekChangeListener;
-import info.efficacious.centralmodelschool.adapters.OnlineClassDetailAdapter;
-import info.efficacious.centralmodelschool.common.ConnectionDetector;
-import info.efficacious.centralmodelschool.database.Databasehelper;
-import info.efficacious.centralmodelschool.entity.OnlineClassDetailPojo;
-import info.efficacious.centralmodelschool.webApi.RetrofitInstance;
-
 import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import info.efficacious.centralmodelschool.Interface.DataService;
+import info.efficacious.centralmodelschool.R;
+import info.efficacious.centralmodelschool.WeeklyCalender.WeekCalendar;
+import info.efficacious.centralmodelschool.WeeklyCalender.listener.OnDateClickListener;
+import info.efficacious.centralmodelschool.adapters.OnlineClassDetailAdapter;
+import info.efficacious.centralmodelschool.common.ConnectionDetector;
+import info.efficacious.centralmodelschool.database.Databasehelper;
+import info.efficacious.centralmodelschool.entity.OnlineClassDetailPojo;
+import info.efficacious.centralmodelschool.webApi.RetrofitInstance;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
 
 
 public class OnlineClassDetail extends Fragment {
