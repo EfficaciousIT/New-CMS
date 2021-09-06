@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CMS.iml" filepath="$PROJECT_DIR$/CMS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CMS.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CMS.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/CMS.libs.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/CMS.libs.iml" />
     </modules>
   </component>
 </project>

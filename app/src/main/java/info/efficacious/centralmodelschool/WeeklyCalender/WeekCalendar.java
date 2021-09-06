@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
-
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import info.efficacious.centralmodelschool.R;
 import com.squareup.otto.Subscribe;
 
 import org.joda.time.DateTime;
@@ -28,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import info.efficacious.centralmodelschool.R;
 import info.efficacious.centralmodelschool.WeeklyCalender.decorator.DayDecorator;
 import info.efficacious.centralmodelschool.WeeklyCalender.decorator.DefaultDayDecorator;
 import info.efficacious.centralmodelschool.WeeklyCalender.eventbus.BusProvider;
