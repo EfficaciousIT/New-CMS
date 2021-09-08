@@ -30,16 +30,16 @@ public class RetrofitInstance {
     //public static final String Image_error_URL = "http://122.170.4.112/CMSWebApi/image/";
 
     //    UAT Links CMSWebApi
-    private static final String BASE_URL = "http://e-smarts.co.in/CMSWEBAPIUAT/api/";
-    public static final String Image_URL = "http://e-smarts.co.in/CMSWEBAPIUAT/image/";
-    public static final String resultUrl="http://www.e-smarts.co.in/CMSResultUAT/result.aspx?";
-    public static final String readmisiionUrl="http://e-smarts.co.in/cmsuat/frmReAdmissionForm.aspx?";
+//    private static final String BASE_URL = "http://e-smarts.co.in/CMSWEBAPIUAT/api/";
+//    public static final String Image_URL = "http://e-smarts.co.in/CMSWEBAPIUAT/image/";
+//    public static final String resultUrl="http://www.e-smarts.co.in/CMSResultUAT/result.aspx?";
+//    public static final String readmisiionUrl="http://e-smarts.co.in/cmsuat/frmReAdmissionForm.aspx?";
 
     //PRODUCTION LINK
-//    private static final String  BASE_URL = "http://e-smarts.net/CMSAPI/api/";
-//    public static final String   Image_URL = "http://e-smarts.net/CentralModel/CentralModelServices/UploadImages/";
-//    public static final String resultUrl="http://e-smarts.net/CMSResult/Result.aspx?";
-//    public static final String readmisiionUrl="http://e-smarts.net/centralmodel/frmReAdmissionForm.aspx?";
+    private static final String  BASE_URL = "http://e-smarts.net/CMSAPI/api/";
+    public static final String   Image_URL = "http://e-smarts.net/CentralModel/CentralModelServices/UploadImages/";
+    public static final String resultUrl="http://e-smarts.net/CMSResult/Result.aspx?";
+    public static final String readmisiionUrl="http://e-smarts.net/centralmodel/frmReAdmissionForm.aspx?";
 
 
     //public static final String Image_URL = "http://e-smarts.net/CMSAPI/image/";
