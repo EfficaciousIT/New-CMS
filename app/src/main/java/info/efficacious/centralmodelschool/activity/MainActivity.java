@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.core.view.GravityCompat;
@@ -23,11 +28,16 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.infideap.drawerbehavior.Advance3DDrawerLayout;
 
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -85,9 +95,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     private static final String TAG = "MainActivity";
 
+    //remote config
+    FirebaseRemoteConfig firebaseRemoteConfig;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //integration remote config
+        HashMap<String,Object> defaultVersion = new HashMap<>();
+        defaultVersion.put("new_version_code",String.valueOf(getVersionCode()));
+
+        firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600) // change to 3600 on published app
+                .build();
+
+        firebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        firebaseRemoteConfig.setDefaultsAsync(defaultVersion);
+
+        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+                if (task.isSuccessful()){
+                    final String new_version_code = firebaseRemoteConfig.getString("new_version_code");
+
+                    if(Integer.parseInt(new_version_code) > getVersionCode()){
+                        showTheDialog("info.efficacious.centralmodelschool", new_version_code );
+                    }
+                }else {
+                    Log.e("MYLOG", "mFirebaseRemoteConfig.fetchAndActivate() NOT Successful");
+                }
+            }
+        });
+
         try {
             settings = getSharedPreferences(PREFRENCES_NAME, Context.MODE_PRIVATE);
             role_id = settings.getString("TAG_USERTYPEID", "");
@@ -1156,5 +1197,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onButtonClicked(String text) {
         Log.e(TAG, "onButtonClicked: "+text );
     }
+
+    private void showTheDialog(String packageName, String remoteVersionConfig) {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Update")
+                .setMessage("New version available V-"+remoteVersionConfig +" !")
+                .setPositiveButton("UPDATE", null)
+                .setNegativeButton("Close",null)
+                .show();
+
+        dialog.setCancelable(false);
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + packageName)));
+                }
+                catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                }
+            }
+        });
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private PackageInfo packageInfo;
+    private int getVersionCode() {
+        packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo.versionCode;
+    }
+
 }
 
