@@ -1,5 +1,8 @@
 package info.efficacious.centralmodelschool.fragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -83,7 +86,7 @@ public class Admin_Dashboard extends Fragment {
     private static final String PREFRENCES_NAME = "myprefrences";
     SharedPreferences settings;
     private CompositeDisposable mCompositeDisposable;
-
+    ProgressDialog progressDialog;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -107,6 +110,11 @@ public class Admin_Dashboard extends Fragment {
         Admin_id = settings.getString("TAG_USERID", "");
         role_id = settings.getString("TAG_USERTYPEID", "");
         academic_id = settings.getString("TAG_ACADEMIC_ID", "");
+
+        progressDialog = new ProgressDialog(mContext);
+        progressDialog.setMessage("Fetching data...");
+        progressDialog.show();
+
         Bundle args = new Bundle();
         args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.SUNDAY);
         calenderview = (FrameLayout) myview.findViewById(R.id.cal_container);
@@ -121,7 +129,6 @@ public class Admin_Dashboard extends Fragment {
             alert.show();
 
         } else {
-
             try {
                 HolidayAsync();
                 studentAsync();
@@ -134,6 +141,7 @@ public class Admin_Dashboard extends Fragment {
             }
 
         }
+
         mCaldroidFragment.setCaldroidListener(new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
@@ -227,6 +235,7 @@ public class Admin_Dashboard extends Fragment {
                         } catch (Exception ex) {
                             TextView_totalfee.setText("Student: 0/0");
                         }
+
                     } else {
                         try {
                             TextView_student.setText("Student: " + taskListDataList.get(i).getPresent() + "/" + taskListDataList.get(i).getCount());
@@ -241,7 +250,8 @@ public class Admin_Dashboard extends Fragment {
             }
 
         } catch (Exception ex) {
-            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "generateStudentCount: Failed");
+//            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -305,9 +315,9 @@ public class Admin_Dashboard extends Fragment {
                 TextView_staff.setText("Staff: 0/0 ");
             }
 
-        } catch (
-                Exception ex) {
-            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            Log.e(TAG, "generateStaffCount: Failed");
+//            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -355,12 +365,14 @@ public class Admin_Dashboard extends Fragment {
                     if (taskListDataList.get(i).getIntSchool_id() == 1) {
                         try {
                             TextView_receivedfee.setText("Teacher: " + taskListDataList.get(i).getPresent() + "/" + taskListDataList.get(i).getCount());
+                            progressDialog.dismiss();
                         } catch (Exception ex) {
                             TextView_receivedfee.setText("Teacher: 0/0");
                         }
                     } else {
                         try {
                             TextView_teacher.setText("Teacher: " + taskListDataList.get(i).getPresent() + "/" + taskListDataList.get(i).getCount());
+                            progressDialog.dismiss();
                         } catch (Exception ex) {
                             TextView_teacher.setText("Teacher: 0/0");
                         }
@@ -372,7 +384,8 @@ public class Admin_Dashboard extends Fragment {
             }
 
         } catch (Exception ex) {
-            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "generateTeacherCount: Failed" );
+//            Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -602,6 +615,7 @@ public class Admin_Dashboard extends Fragment {
                 Toast.makeText(getActivity(), "Response Taking Time,Seems Network issue!", Toast.LENGTH_SHORT).show();
             }
 
+
         } catch (Exception ex) {
             Toast.makeText(getActivity(), "Response Taking Time,Seems Network issue!", Toast.LENGTH_SHORT).show();
         }
@@ -640,7 +654,6 @@ public class Admin_Dashboard extends Fragment {
             holidayDay = cal.getTime();
             ColorDrawable bgToday = new ColorDrawable(Color.RED);
             mCaldroidFragment.setBackgroundDrawableForDate(bgToday, holidayDay);
-
         }
     }
 
