@@ -80,7 +80,7 @@
                     <EditText
                         android:id="@+id/editText2"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="220dp"
                         android:layout_margin="5dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
@@ -126,15 +126,13 @@
 
             </RelativeLayout>
 
-
-
             <RelativeLayout
                 android:id="@+id/notice2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp">
+
                 <androidx.cardview.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/cv_add2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,14 +143,15 @@
                     <EditText
                         android:id="@+id/editText22"
                         android:layout_width="fill_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="220dp"
                         android:layout_margin="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="5dp"
                         android:gravity="top|left"
                         android:hint="Text your SMS here"
-                        android:inputType="textMultiLine"  />
+                        android:inputType="textMultiLine"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/textView28"
                     android:layout_width="wrap_content"
@@ -193,6 +192,8 @@
                     android:textStyle="bold" />
 
             </RelativeLayout>
+
+
             <androidx.cardview.widget.CardView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cv_add4"
@@ -223,13 +224,13 @@
                 <EditText
                     android:id="@+id/editText288"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="220dp"
                     android:layout_margin="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:gravity="top|left"
                     android:hint="Text your SMS here"
-                    android:inputType="textImeMultiLine|textLongMessage"
+                    android:inputType="textMultiLine"
                     />
             </androidx.cardview.widget.CardView>
             <RelativeLayout
