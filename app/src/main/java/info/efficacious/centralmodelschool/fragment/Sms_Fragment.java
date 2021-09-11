@@ -824,7 +824,9 @@ public class Sms_Fragment extends Fragment {
                 for (int i = 0; i < phone_no_list.size(); i++) {
                     Log.d("TAG","multiple"+phone_no_list.get(i)+"__"+message);
 //                    requestUrl = ("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&message=" + URLEncoder.encode(message, "UTF-8") + "&format=json&custom=1,2&flash=0&unicode=1");
-                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8") + "&response=Y");
+//                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8") + "&response=Y");
+                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school&pass=w_F@2R6g&senderid=CMSBKP&dest_mobileno="
+                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid=1507163100574058180" + "");
 //                    POST("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + strMobileNo + "&msgtype=TXT&message=" + txtNotice.Text.Trim() + "&response=Y", "");
 
                     URL url = new URL(requestUrl);
@@ -889,7 +891,11 @@ public class Sms_Fragment extends Fragment {
                 String requestUrl = "";
                 for (int i = 0; i < sms_phone_no_array.size(); i++) {
 //                    requestUrl = ("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + URLEncoder.encode(sms_phone_no_array.get(i), "UTF-8") + "&message=" + URLEncoder.encode(message, "UTF-8") + "&format=json&custom=1,2&flash=0&unicode=1");
-                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8") + "&response=Y");
+//                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno="
+//                            + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8")
+//                            + "&response=Y");
+                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school&pass=w_F@2R6g&senderid=CMSBKP&dest_mobileno="
+                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid=1507163100574058180" + "");
                     URL url = new URL(requestUrl);
                     Log.d("TAG","multiurl"+url);
                     uc = (HttpURLConnection) url.openConnection();
