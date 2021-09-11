@@ -29,8 +29,8 @@ android {
         applicationId "info.efficacious.centralmodelschool"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 120
-        versionName "1.1.5.56"
+        versionCode 128 //120
+        versionName "1.1.5.64" //56
         multiDexEnabled true
     }
     android {
