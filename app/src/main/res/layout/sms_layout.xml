@@ -5,14 +5,35 @@
     android:background="@mipmap/background">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="vertical"
             >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Spinner
+                    android:id="@+id/templateSpinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bg_spinner"
+                    android:elevation="4dp"
+                    android:padding="10dp" />
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeLayout2"
                 android:layout_width="fill_parent"
@@ -23,7 +44,12 @@
                     android:id="@+id/spinner3"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/bg_spinner"
                     android:elevation="4dp"
                     android:padding="5dp" />
@@ -158,9 +184,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cv_add2"
                     android:layout_toEndOf="@+id/textView29"
+                    android:layout_toRightOf="@+id/textView29"
                     android:text="  characters left"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/textView29" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -245,16 +271,16 @@
                     android:id="@+id/textView291"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="160"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:text="160" />
 
                 <TextView
                     android:id="@+id/textView281"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView291"
-                    android:text=" characters left"
-                    android:layout_toRightOf="@+id/textView291" />
+                    android:layout_toRightOf="@+id/textView291"
+                    android:text=" characters left" />
 
                 <TextView
                     android:id="@+id/textView2611"

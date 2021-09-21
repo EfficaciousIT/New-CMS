@@ -1,8 +1,9 @@
 package info.efficacious.centralmodelschool.Interface;
 
 
+import java.util.List;
+
 import info.efficacious.centralmodelschool.entity.AssignBookDetailLibPojo;
-import info.efficacious.centralmodelschool.entity.AttendanceDetail;
 import info.efficacious.centralmodelschool.entity.AttendanceDetailPojo;
 import info.efficacious.centralmodelschool.entity.BookDetailLibPojo;
 import info.efficacious.centralmodelschool.entity.CategoryDetailLibPojo;
@@ -17,22 +18,20 @@ import info.efficacious.centralmodelschool.entity.LeaveDetailPojo;
 import info.efficacious.centralmodelschool.entity.LibraryDetailPojo;
 import info.efficacious.centralmodelschool.entity.LoginDetail;
 import info.efficacious.centralmodelschool.entity.LoginDetailsPojo;
-import info.efficacious.centralmodelschool.entity.Message;
 import info.efficacious.centralmodelschool.entity.MessagePojo;
 import info.efficacious.centralmodelschool.entity.NoticeboardDetail;
 import info.efficacious.centralmodelschool.entity.OnlineClassDetailPojo;
 import info.efficacious.centralmodelschool.entity.OnlineClassDetailsPojo;
 import info.efficacious.centralmodelschool.entity.OnlineClassTimetablePojo;
-import info.efficacious.centralmodelschool.entity.ProfileDetail;
 import info.efficacious.centralmodelschool.entity.ProfileDetailsPojo;
 import info.efficacious.centralmodelschool.entity.SchoolDetailsPojo;
+import info.efficacious.centralmodelschool.entity.SmsTemplatePojo;
 import info.efficacious.centralmodelschool.entity.StandardDetail;
 import info.efficacious.centralmodelschool.entity.StandardDetailsPojo;
 import info.efficacious.centralmodelschool.entity.StudentStandardwiseDetailPojo;
 import info.efficacious.centralmodelschool.entity.MarkAttendence;
 import info.efficacious.centralmodelschool.entity.SubjectDetailLibPojo;
 import info.efficacious.centralmodelschool.entity.SyllabusDetailPojo;
-import info.efficacious.centralmodelschool.entity.TeacherDetail;
 import info.efficacious.centralmodelschool.entity.TeacherDetailPojo;
 import info.efficacious.centralmodelschool.entity.TeacherLibDetailPojo;
 import info.efficacious.centralmodelschool.entity.TimeTableDetailPojo;
@@ -390,5 +389,11 @@ public interface DataService {
     @POST("Login")
     Observable<ResponseBody> FCMTokenUpdate(@Query("command") String command,
                                             @Body LoginDetail loginDetail);
+
+    @GET("SMSTemplate")
+    Call<SmsTemplatePojo>  getTemplateName(@Query("command") String command,
+                                @Query("intSchool_id") String intSchool_id);
+
+
 
 }
