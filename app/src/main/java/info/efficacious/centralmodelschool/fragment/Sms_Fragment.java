@@ -1,5 +1,7 @@
 package info.efficacious.centralmodelschool.fragment;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,7 +33,6 @@ import android.widget.Toast;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,6 +46,8 @@ import info.efficacious.centralmodelschool.adapters.Standard_Spinner;
 import info.efficacious.centralmodelschool.common.ConnectionDetector;
 import info.efficacious.centralmodelschool.entity.DashboardDetail;
 import info.efficacious.centralmodelschool.entity.DashboardDetailsPojo;
+import info.efficacious.centralmodelschool.entity.SMSTemplate;
+import info.efficacious.centralmodelschool.entity.SmsTemplatePojo;
 import info.efficacious.centralmodelschool.entity.StandardDetail;
 import info.efficacious.centralmodelschool.entity.StandardDetailsPojo;
 import info.efficacious.centralmodelschool.webApi.RetrofitInstance;
@@ -53,6 +56,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -63,7 +69,6 @@ public class Sms_Fragment extends Fragment {
 
     RelativeLayout relativeLayout_notice, relativeLayout_notice1, relativeLayout_notice2, relativeLayout2, relativeLayout3;
     Button send_button;
-    TextView textView;
     Spinner spinner_usertype, spinner_std, spinner_section;
     String[] UserType;
     ArrayList<String> sms_phone_no_array = new ArrayList<String>();
@@ -83,6 +88,13 @@ public class Sms_Fragment extends Fragment {
     private ProgressDialog progress;
     ArrayList<StandardDetail> Standard_list = new ArrayList<StandardDetail>();
     ArrayList<StandardDetail> Division_list = new ArrayList<StandardDetail>();
+    List<SMSTemplate> TemplateName_List;
+
+    Spinner templateSpinner;
+    String[] templateName;
+    String[] templateId;
+    String[] templateMessage;
+    String  TEMPLATE_ID;
 
     @Nullable
     @Override
@@ -106,6 +118,7 @@ public class Sms_Fragment extends Fragment {
         sms_count = (TextView) myview.findViewById(R.id.textView31);
         char_160 = (TextView) myview.findViewById(R.id.textView29);
 
+        templateSpinner = (Spinner) myview.findViewById(R.id.templateSpinner);
         spinner_usertype = (Spinner) myview.findViewById(R.id.spinner3);
         spinner_section = (Spinner) myview.findViewById(R.id.spinner5);
         spinner_std = (Spinner) myview.findViewById(R.id.spinner4);
@@ -120,6 +133,105 @@ public class Sms_Fragment extends Fragment {
         Schooli_id = settings.getString("TAG_SCHOOL_ID", "");
         role_id = settings.getString("TAG_USERTYPEID", "");
         UserType = getResources().getStringArray(R.array.spinner);
+
+        // this method for set template name list for spinner
+        try {
+            DataService service = RetrofitInstance.getRetrofitInstance().create(DataService.class);
+            Call<SmsTemplatePojo> call = service.getTemplateName("select_TemplateName",Schooli_id);
+
+            call.enqueue(new Callback<SmsTemplatePojo>() {
+                @Override
+                public void onResponse(Call<SmsTemplatePojo> call, Response<SmsTemplatePojo> response) {
+
+                   try {
+                       TemplateName_List = response.body().getSMSTemplate();
+                       if (TemplateName_List != null && TemplateName_List.size() > 0) {
+                           templateName = new String[TemplateName_List.size()];
+                           templateId = new String[TemplateName_List.size()];
+                           templateMessage = new String[TemplateName_List.size()];
+
+                           templateName[0] = "Select SMS Format";
+                           templateId[0] = "";
+                           templateMessage[0] = "";
+
+
+                           for (int i = 0; i <TemplateName_List.size(); i++) {
+                               templateName[i+1] = TemplateName_List.get(i).getVchTemplateName();
+                               templateId[i+1] = TemplateName_List.get(i).getVchTemplateId();
+                               templateMessage[i+1] = TemplateName_List.get(i).getVchTemplate_Message();
+                               ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, templateName);
+                               spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                               templateSpinner.setAdapter(spinnerArrayAdapter);
+                           }
+                       }else{
+                           Toast.makeText(getContext(), "List empty", Toast.LENGTH_SHORT).show();
+                       }
+                   }catch (Exception e){
+//                       Toast.makeText(getContext(), "Error  : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<SmsTemplatePojo> call, Throwable t) {
+                    Log.d(TAG, "onFailure: " + t.getMessage());
+                    Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }catch (Exception e){
+        }
+
+        //get template id and request for template message
+        templateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String TEMPLATE_NAME = templateName[position];
+                if (TEMPLATE_NAME.contentEquals("Select SMS Format")){
+                    spinner_usertype.setVisibility(View.GONE);
+                    sms_box.setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView27).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView32).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView33).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView28).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView29).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView261).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView291).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView281).setVisibility(View.GONE);
+                    myview.findViewById(R.id.textView2611).setVisibility(View.GONE);
+                    send_button.setVisibility(View.GONE);
+                }else {
+                    spinner_usertype.setVisibility(View.VISIBLE);
+                    sms_box.setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView27).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView32).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView33).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView28).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView29).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView261).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView291).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView281).setVisibility(View.VISIBLE);
+                    myview.findViewById(R.id.textView2611).setVisibility(View.VISIBLE);
+                    send_button.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "TEMPLATE_ID: " + templateId[position]);
+                    Toast.makeText(getContext(), String.valueOf(templateId[position]), Toast.LENGTH_SHORT).show();
+                    TEMPLATE_ID = templateId[position];
+                    sms_box.setText(templateMessage[position]);
+                    sms_box2.setText(templateMessage[position]);
+                    sms_box3.setText(templateMessage[position]);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
         ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, UserType);
         spinner_usertype.setAdapter(ad);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -826,10 +938,11 @@ public class Sms_Fragment extends Fragment {
 //                    requestUrl = ("http://alerts.justnsms.com/api/web2sms.php?workingkey=A2cabcee227fa491ee050155a13485498&sender=CMSBKP&to=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&message=" + URLEncoder.encode(message, "UTF-8") + "&format=json&custom=1,2&flash=0&unicode=1");
 //                    requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8") + "&response=Y");
                     requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school&pass=w_F@2R6g&senderid=CMSBKP&dest_mobileno="
-                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid=1507163100574058180" + "");
+                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid=" + TEMPLATE_ID + "");
 //                    POST("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school &pass=$b5@ZtX3&senderid=CMSBKP&dest_mobileno=" + strMobileNo + "&msgtype=TXT&message=" + txtNotice.Text.Trim() + "&response=Y", "");
 
                     URL url = new URL(requestUrl);
+                    Log.d("TAG","SMS URL"+requestUrl);
                     Log.d("TAG","url"+url);
                     uc = (HttpURLConnection) url.openConnection();
                     String responseMessage = uc.getResponseMessage();
@@ -895,9 +1008,9 @@ public class Sms_Fragment extends Fragment {
 //                            + URLEncoder.encode(phone_no_list.get(i), "UTF-8") + "&msgtype=TXT&message=" + URLEncoder.encode(message, "UTF-8")
 //                            + "&response=Y");
                     requestUrl = ("http://www.smsjust.com/sms/user/urlsms.php?username=Central Model school&pass=w_F@2R6g&senderid=CMSBKP&dest_mobileno="
-                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid=1507163100574058180" + "");
+                            + phone_no_list.get(i) + "&msgtype=TXT&message=" +message + "&response=Y&dlttempid="+ TEMPLATE_ID + "");
                     URL url = new URL(requestUrl);
-                    Log.d("TAG","multiurl"+url);
+                    Log.d("TAG","SMS MULTI URL"+requestUrl);
                     uc = (HttpURLConnection) url.openConnection();
                     System.out.println(uc.getResponseMessage());
                     String response = uc.getResponseMessage();
@@ -949,7 +1062,8 @@ public class Sms_Fragment extends Fragment {
     public void Division_name(String std_id) {
         try {
             DataService service = RetrofitInstance.getRetrofitInstance().create(DataService.class);
-            Observable<StandardDetailsPojo> call = service.getStandardDetails("GetDivision", Schooli_id, "", std_id, "", "", "");
+            Observable<StandardDetailsPojo> call = service.getStandardDetails("GetDivision",
+                    Schooli_id, "", std_id, "", "", "");
             call.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<StandardDetailsPojo>() {
                 @Override
                 public void onSubscribe(Disposable disposable) {
