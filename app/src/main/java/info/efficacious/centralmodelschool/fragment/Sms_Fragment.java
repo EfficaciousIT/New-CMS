@@ -146,16 +146,16 @@ public class Sms_Fragment extends Fragment {
                    try {
                        TemplateName_List = response.body().getSMSTemplate();
                        if (TemplateName_List != null && TemplateName_List.size() > 0) {
-                           templateName = new String[TemplateName_List.size()];
-                           templateId = new String[TemplateName_List.size()];
-                           templateMessage = new String[TemplateName_List.size()];
+                           templateName = new String[TemplateName_List.size() + 1];
+                           templateId = new String[TemplateName_List.size() + 1];
+                           templateMessage = new String[TemplateName_List.size() + 1];
 
                            templateName[0] = "Select SMS Format";
                            templateId[0] = "";
                            templateMessage[0] = "";
 
 
-                           for (int i = 0; i <TemplateName_List.size(); i++) {
+                           for (int i = 0; i <=TemplateName_List.size(); i++) {
                                templateName[i+1] = TemplateName_List.get(i).getVchTemplateName();
                                templateId[i+1] = TemplateName_List.get(i).getVchTemplateId();
                                templateMessage[i+1] = TemplateName_List.get(i).getVchTemplate_Message();
